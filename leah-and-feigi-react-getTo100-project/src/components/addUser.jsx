@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import GameBoard from './gameBoard';
 
 function AddUser() {
-    const [user, setUser] = useState([]);
-    const [userDetails, setUserDetails] = useState({ fullName: '', scors: [] });
+    //const [user, setUser] = useState([]);
+    const [userDetails, setUserDetails] = useState([{ fullName: '', scors: [] }]);
     const [isVisible, setisVisible] = useState(false)
     const [game, setGame] = useState(false)
 
@@ -10,19 +11,19 @@ function AddUser() {
         setisVisible(true)
     }
 
-    function findUser(name) {
-        let arrGemers = user;
-        return (arrGemers.find(person => { (person.name === name) }))
+    function findUser(personName) {
+        let arrGemers = JSON.parse(localStorage.getItem('Gamers')) || [];
+        return (arrGemers.find(person => { (person.fullName === personName.fullName) }))
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        if (!findUser(userDetails)) {
-            const player = userDetails;
+        if (findUser(userDetails[userDetails.length - 1])) {
+            const player = userDetails[userDetails.length - 1];
             let arrUsers = JSON.parse(localStorage.getItem('Gamers')) || [];
             arrUsers.push(player);
             localStorage.setItem('Gamers', JSON.stringify(arrUsers));
-            setUser(prevUsers => [...prevUsers, player]);
+            //setUser(prevUsers => [...prevUsers, player]);
         }
         setisVisible(false);
         setGame(true);
@@ -44,10 +45,13 @@ function AddUser() {
 
     const handleChange = (event) => {
         event.preventDefault();
-        if (event.target.value.length < 2)
-            console.info('Full Name must be at least 2 characters long!')
         const { name, value } = event.target;
-        setUserDetails({ ...userDetails, [name]: value });
+        if (value.length < 2)
+            console.info('Full Name must be at least 2 characters long!')
+        let arrayScors = [];
+        let foundUser = findUser(value)
+        foundUser && (arrayScors = foundUser.scors);
+        setUserDetails([...userDetails, { [name]: value, scors: arrayScors }]);
     }
 
     return <>
@@ -64,11 +68,12 @@ function AddUser() {
                     <button type='submit'>התחל משחק</button>
                 </div>
             </form>}
-        {game &&
-            <form noValidate>
-                <h3>GetTo💯</h3>
-                
-            </form>}
+        {game && <GameBoard ></GameBoard>
+            // <form noValidate>
+            //     <h3>GetTo💯</h3>
+
+            // </form>
+        }
         {/* <input type="text" id="name" placeholder="first name:" required />
         <input type="password" id="password" placeholder="password:" required />
         <button onClick={signUp}>הוסף משתמש</button> */}
