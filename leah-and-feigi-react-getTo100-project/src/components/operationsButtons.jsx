@@ -1,6 +1,8 @@
 
-function OperationsButtons({ steps, player, setUserDetails, number, setSteps, availableBord, setNumber, setAvailableBord, length, index }) {
+import GameBoard from "./gameBoard";
+function OperationsButtons({ steps,players, player, setUserDetails, number, setSteps, availableBord, setNumber, setAvailableBord, length, index }) {
     const operations = ["+1", "-1", "*2", "/2"];
+    
     // function win(){
     //     setUserDetails(prevUserDetails=>[...prevUserDetails, prevUserDetails[index].scors.push()])
     // }
@@ -23,7 +25,7 @@ function OperationsButtons({ steps, player, setUserDetails, number, setSteps, av
             }
         });
         length--;
-        setAvailableBord(prevBord => (prevBord + 1) % (length))
+        setAvailableBord(prevBord => (prevBord + 1) % (length-1))
     }
 
     function win() {
@@ -69,7 +71,7 @@ function OperationsButtons({ steps, player, setUserDetails, number, setSteps, av
     }
     return (<>
         {number == 100 ? <button onClick={() => reset()}>התחל משחק חדש</button> : operations.map((operation, i) => <button disabled={(index == availableBord) ? false : true} key={"button_" + i} onClick={() => operate(operation)}>{operation}</button>)}
-        {number == 100 && <button onClick={() => exit()}>יציאה</button>}
+        {number == 100 && <button onClick={() => exit()}>יציאה</button>&&<GameBoard players={players} setUserDetails={setUserDetails} />}
     </>
     )
 }
