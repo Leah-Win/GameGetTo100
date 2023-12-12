@@ -6,7 +6,8 @@ function Game() {
     return (
         <>
             <AddUser />
-            {users.map((gamer) => <GameBoard />)}
+            {/* {users.map((gamer) => <GameBoard />)}
+            לדעתי זה כן אמור לעבור דרך כאן, ביום שנסדר.... */}
         </>
     )
 }
