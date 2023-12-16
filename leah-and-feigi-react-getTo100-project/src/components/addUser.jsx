@@ -35,6 +35,7 @@ function AddUser() {
     }
 
     return <>
+            <h1>Get To 💯</h1>
         <button onClick={() => setisVisible(true)}>הוסף שחקן</button>
         {isVisible &&
             <form onSubmit={handleSubmit} required>
