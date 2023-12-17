@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import GameBoard from './gameBoard';
 
-function AddUser() {
-    const [userDetails, setUserDetails] = useState([]);
+function AddUser( {userDetails, setUserDetails} ) {
+    // const [userDetails, setUserDetails] = useState([]);
     const [isVisible, setisVisible] = useState(false)
-    const [game, setGame] = useState(false)
+    // const [game, setGame] = useState(false)
 
     function findUser(personName) {
         let arrGemers = JSON.parse(localStorage.getItem('Gamers')) || [];
@@ -30,26 +29,25 @@ function AddUser() {
             }
             console.log(userDetails)
             setisVisible(false);
-            setGame(true);
+            // setGame(true);
         }
     }
 
     return <>
-            <h1>Get To 💯</h1>
+
         <button onClick={() => setisVisible(true)}>הוסף שחקן</button>
         {isVisible &&
             <form onSubmit={handleSubmit} required>
                 <div className='fullName'>
-
                     <input type='text' name='fullName' required />
                     <label htmlFor="fullName"> שם מלא</label>
                 </div>
                 <div className='submit'>
-                    <button type='submit'>התחל משחק</button>
+                    <button type='submit'>הוסף</button>
                 </div>
                 <button onClick={() => setisVisible(false)} type='button'>סגור</button>
             </form>}
-        {game && <GameBoard players={userDetails} setUserDetails={setUserDetails} />}
+        {/* {game && <GameBoard players={userDetails} setUserDetails={setUserDetails} />} */}
     </>
 }
 export default AddUser;

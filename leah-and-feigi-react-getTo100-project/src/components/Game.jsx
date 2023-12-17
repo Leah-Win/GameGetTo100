@@ -1,13 +1,22 @@
 import { useState } from "react"
 import AddUser from './addUser'
+import GameBoard from './gameBoard';
+
 
 function Game() {
-    const [users, setUsers] = useState([]);
+    const [userDetails, setUserDetails] = useState([]);
+    const [game, setGame] = useState(false)
+    function startGame() {
+        if (0 < userDetails.length)
+            setGame(true)
+
+    }
     return (
         <>
-            <AddUser />
-            {/* {users.map((gamer) => <GameBoard />)}
-            לדעתי זה כן אמור לעבור דרך כאן, ביום שנסדר.... */}
+            <h1>Get To 💯</h1>
+            {!game && <AddUser userDetails={userDetails} setUserDetails={setUserDetails} />}
+            {!game && <button onClick={startGame}>התחל משחק</button>}
+            {game && <GameBoard players={userDetails} setUserDetails={setUserDetails} />}
         </>
     )
 }

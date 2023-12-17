@@ -2,7 +2,8 @@ import { useState } from "react"
 import OperationsButtons from "./operationsButtons"
 
 function Board(props) {
-    const [number, setNumber] = useState(Math.floor(Math.random() * 100))
+    // const [number, setNumber] = useState(Math.floor(Math.random() * 100))
+    const [number, setNumber] = useState(99)
     const [steps, setSteps] = useState(0)
     // const [finish, setFinish] = useState(false)
 
@@ -14,10 +15,10 @@ function Board(props) {
 
     const scorsArr = findUser(props.player.fullName).scors;
 
-
-    // function findUser(personName) {
+    //היא לא עובדת
+    // const scorsArr= findUser(props.player.fullName)=> {
     //     let arrGemers = JSON.parse(localStorage.getItem('Gamers')) || [];
-    //     return (arrGemers.find(person => (person.fullName === personName)))
+    //     return (arrGemers.find(person => (person.fullName === props.player.fullName))).scors;
     // }
 
     // const scorsArr = props.player ? findUser(props.player.fullName).scors : null;

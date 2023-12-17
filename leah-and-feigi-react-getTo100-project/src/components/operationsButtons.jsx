@@ -8,21 +8,32 @@ function OperationsButtons({ steps, players, player, setUserDetails, number, set
         setSteps(0)
     }
 
+    //בטוח שהוא צריך נקודות ביוזאר דטייל?
+
     function exit() {
         setUserDetails((prev) => {
             for (let i = 0; i < length; i++) {
-                // console.log([{a:1},{a:2},{a:3},{a:4}]);
-                if (prev[i].fullName == player.fullName) {
+                // if()
+                if (prev[i] == player) {
                     // prev.splice(i, 1)
                     // prev[i] = { fullName: null, scors: null };
-                     prev[i] = null;
+                    prev[i] = null;
                     return prev
                 }
             }
         });
-        length=length-1;
-        setAvailableBord(prevBord => (prevBord + 1) % length)
-        return;        
+        setAvailableBord((prevBord) => {
+            let next = (prevBord + 1) % length;
+            // while (players[next].fullName == null)
+            while (players[next] == null)
+                next = (next + 1) % length
+            return next;
+        })
+        // length=length-1;
+        // setAvailableBord(prevBord => (prevBord + 1) % length)
+
+        //2 בעיות, הראשונה: במחיקה זה עובר להבא סתם, בעיה שניה: אם יש אחריו נלל זה נתקע שם
+        // return;        
         // setAvailableBord((prevBord) => {
         //     // if (players[(prevBord + 1) % length].fullName == null)
         //     if (players[(prevBord + 1) % length]== null)
@@ -86,17 +97,18 @@ function OperationsButtons({ steps, players, player, setUserDetails, number, set
         // })
 
 
-        setAvailableBord(prevBord => (prevBord + 1) % length)
+        // setAvailableBord(prevBord => (prevBord + 1) % length)
 
 
 
-        // setAvailableBord((prevBord) => {
-        //     let next = (prevBord + 1) % length;
-        //     // while (players[next].fullName == null)
-        //     while (players[next] == null)
-        //         next = (next + 1) % length
-        //     return next;
-        // })
+        setAvailableBord((prevBord) => {
+            console.log(players)
+            let next = (prevBord + 1) % length;
+            // while (players[next].fullName == null)
+            while (players[next] == null)
+                next = (next + 1) % length
+            return next;
+        })
     }
     return (<>
         {number == 100 ? <button onClick={() => reset()}>התחל משחק חדש</button> : operations.map((operation, i) => <button disabled={(index == availableBord) ? false : true} key={"button_" + i} onClick={() => operate(operation)}>{operation}</button>)}
