@@ -1,9 +1,7 @@
 import { useState } from 'react';
 
 function AddUser({ userDetails, setUserDetails }) {
-    // const [userDetails, setUserDetails] = useState([]);
     const [isVisible, setisVisible] = useState(false)
-    // const [game, setGame] = useState(false)
 
     function findUser(personName) {
         let arrGemers = JSON.parse(localStorage.getItem('Gamers')) || [];
@@ -29,12 +27,10 @@ function AddUser({ userDetails, setUserDetails }) {
             }
             console.log(userDetails)
             setisVisible(false);
-            // setGame(true);
         }
     }
 
     return <>
-
         <button onClick={() => setisVisible(true)}>הוסף שחקן</button>
         {isVisible &&
             <form onSubmit={handleSubmit} required>
@@ -47,7 +43,7 @@ function AddUser({ userDetails, setUserDetails }) {
                 </div>
                 <button onClick={() => setisVisible(false)} type='button'>סגור</button>
             </form>}
-        {/* {game && <GameBoard players={userDetails} setUserDetails={setUserDetails} />} */}
     </>
 }
+
 export default AddUser;

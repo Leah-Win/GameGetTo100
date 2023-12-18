@@ -8,11 +8,13 @@ const root = createRoot(domNode);
 
 function Game() {
     const [userDetails, setUserDetails] = useState([]);
-    const [game, setGame] = useState(false)
+    const [game, setGame] = useState(false);
+
     function startGame() {
         if (0 < userDetails.length)
             setGame(true)
     }
+
     function exit(player) {
         setUserDetails((prev) => {
             for (let i = 0; i < userDetails.length; i++) {
@@ -24,6 +26,7 @@ function Game() {
         });
         root.render(<GameBoard exit={exit} players={userDetails} setUserDetails={setUserDetails} />);
     }
+    
     return (
         <>
             <h1>Get To 💯</h1>

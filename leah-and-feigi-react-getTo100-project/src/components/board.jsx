@@ -2,28 +2,15 @@ import { useState } from "react"
 import OperationsButtons from "./operationsButtons"
 
 function Board(props) {
-    // const [number, setNumber] = useState(Math.floor(Math.random() * 100))
-    const [number, setNumber] = useState(99)
+    const [number, setNumber] = useState(Math.floor(Math.random() * 100))
     const [steps, setSteps] = useState(0)
-    // const [finish, setFinish] = useState(false)
-
+    const scorsArr = findUser(props.player.fullName).scors;
 
     function findUser(personName) {
         let arrGemers = JSON.parse(localStorage.getItem('Gamers')) || [];
         return (arrGemers.find(person => (person.fullName === personName)))
     }
 
-    const scorsArr = findUser(props.player.fullName).scors;
-
-    //היא לא עובדת
-    // const scorsArr= findUser(props.player.fullName)=> {
-    //     let arrGemers = JSON.parse(localStorage.getItem('Gamers')) || [];
-    //     return (arrGemers.find(person => (person.fullName === props.player.fullName))).scors;
-    // }
-
-    // const scorsArr = props.player ? findUser(props.player.fullName).scors : null;
-
-// setShowBoards={props.setShowBoards}
     return (<>
         <div className="bord">
             <h4>{props.player.fullName} :שחקן</h4>
@@ -34,4 +21,5 @@ function Board(props) {
         </div>
     </>)
 }
+
 export default Board

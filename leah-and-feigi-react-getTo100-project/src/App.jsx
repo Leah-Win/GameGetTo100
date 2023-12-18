@@ -6,10 +6,9 @@ import User from './components/addUser'
 import Game from './components/Game'
 
 function App() {
-
   return (
     <>
-      <Game/>
+      <Game />
     </>
   )
 }
