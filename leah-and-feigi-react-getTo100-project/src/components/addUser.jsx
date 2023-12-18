@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function AddUser( {userDetails, setUserDetails} ) {
+function AddUser({ userDetails, setUserDetails }) {
     // const [userDetails, setUserDetails] = useState([]);
     const [isVisible, setisVisible] = useState(false)
     // const [game, setGame] = useState(false)
@@ -19,9 +19,9 @@ function AddUser( {userDetails, setUserDetails} ) {
             let arrayScors = [];
             let foundUser = findUser(value);
             foundUser && (arrayScors = foundUser.scors);
-            let newUser = { fullName: value, scors: arrayScors };
+            let newUser = { fullName: value, scors: arrayScors, isActive: true };
             if (!userDetails.find(person => (person.fullName === value)))
-                setUserDetails(prevUserDetails=>[...prevUserDetails, newUser]);
+                setUserDetails(prevUserDetails => [...prevUserDetails, newUser]);
             if (!foundUser) {
                 let arrUsers = JSON.parse(localStorage.getItem('Gamers')) || [];
                 arrUsers.push(newUser);

@@ -1,9 +1,19 @@
 import { useState } from "react"
 import Board from "./board"
 
-function GameBoard({ players, setUserDetails }) {
-    const [availableBord, setAvailableBord] = useState(0)
+function GameBoard({ exit, players, setUserDetails }) {
 
+
+    const [availableBord, setAvailableBord] = useState(initialAvailableBord)
+
+    function initialAvailableBord() {
+        let bord = 0;
+        while (players[bord].isActive == false)
+            bord = (bord + 1) % players.length
+        return bord
+    }
+
+    // const [showBoards, setShowBoards] = useState([])
     function topPlayers() {
         let arrGemers = JSON.parse(localStorage.getItem('Gamers'));
         let scoresArr = []
@@ -14,9 +24,12 @@ function GameBoard({ players, setUserDetails }) {
             scoresArr[i] = { name: arrGemers[i].fullName, average: sum / arrGemers[i].scors.length };
         }
         scoresArr.sort(function (a, b) { return a.average - b.average });
-        return [scoresArr[0].name, scoresArr[1].name, scoresArr[2].name];
+        const topPlayersArr = []
+        for (let j = 0; j < 3; j++) {
+            topPlayersArr[j] = { name: scoresArr[j].name, average: scoresArr[j].average }
+        }
+        return topPlayersArr;
     }
-
     // function showBoards(player, i) {
     //     // if (player.fullName == null)
     //     if (player == null)
@@ -26,17 +39,45 @@ function GameBoard({ players, setUserDetails }) {
     //         return <Board players={players} index={i} key={"board_" + i} availableBord={availableBord} player={player} setUserDetails={setUserDetails} setAvailableBord={setAvailableBord} length={players.length} />
     // }
 
-    return (<>
-        <h3>{topPlayers().map((player) => player + " ")} :השחקנים המובילים </h3>
-        <div id="container">
+    // setShowBoards((prev) => {
+    //     prev = players.map((player, i) => {
+    //         <Board setShowBoards={setShowBoards} players={players} index={i} key={"board_" + i}
+    //             availableBord={availableBord} player={player} setUserDetails={setUserDetails}
+    //             length={players.length} />
+    //     })
+    //     return prev;
+    // })
+    // setAvailableBord={setAvailableBord}
 
+    // const showBoards = () => {
+    //     let showBoard = players.map((player, i) => {
+    //         return <Board players={players} index={i} key={"board_" + i} availableBord={availableBord} player={player} setUserDetails={setUserDetails} setAvailableBord={setAvailableBord} length={players.length} />
+    //     })
+    // }
+
+    // let showBoards = players.map((player, i) => {
+    //     return <Board players={players} index={i} key={"board_" + i} availableBord={availableBord} player={player} setUserDetails={setUserDetails} setAvailableBord={setAvailableBord} length={players.length} />
+    // })
+
+    return (<>
+        <h3>{topPlayers().map((player) => player.name + " : " + player.average+"    ")} :השחקנים המובילים </h3>
+        <div id="container">
             {/* {players.map(showBoards)} */}
 
-            {players.map((player, i) => {
-                if (player == null)
-                    // return <button>not willy</button>
-                    return null;
+            {/* {showBoards.map((bord, i) => bord)} */}
+            {/* {showBoards.map((obj) => console.log("mmm " + obj))} */}
+            {/* {showBoards}*/}
+            {/* {console.log("ii "+showBoards)}  */}
+
+            {/* {players.map((player, i) => {
                 return <Board players={players} index={i} key={"board_" + i} availableBord={availableBord} player={player} setUserDetails={setUserDetails} setAvailableBord={setAvailableBord} length={players.length} />
+            })} */}
+            {console.log(players)}
+            {players.map((player, i) => {
+                if (player.isActive == false)
+                    // return <button>not willy</button>
+                    return;
+                return <Board exit={exit} players={players} index={i} key={"board_" + i} availableBord={availableBord} player={player} setUserDetails={setUserDetails} setAvailableBord={setAvailableBord} length={players.length} />
             })}
 
             {/* {players.map((player, i) => {

@@ -1,34 +1,38 @@
 
 import GameBoard from "./gameBoard";
-function OperationsButtons({ steps, players, player, setUserDetails, number, setSteps, availableBord, setNumber, setAvailableBord, length, index }) {
+function OperationsButtons({exitt, steps, players, player, setUserDetails, number, setSteps, availableBord, setNumber, setAvailableBord, length, index }) {
     const operations = ["+1", "-1", "*2", "/2"];
 
     function reset() {
         setNumber(Math.floor(Math.random() * 100))
         setSteps(0)
     }
-
+    // setShowBoards,
     //בטוח שהוא צריך נקודות ביוזאר דטייל?
 
     function exit() {
-        setUserDetails((prev) => {
-            for (let i = 0; i < length; i++) {
-                // if()
-                if (prev[i] == player) {
-                    // prev.splice(i, 1)
-                    // prev[i] = { fullName: null, scors: null };
-                    prev[i] = null;
-                    return prev
-                }
-            }
-        });
-        setAvailableBord((prevBord) => {
-            let next = (prevBord + 1) % length;
-            // while (players[next].fullName == null)
-            while (players[next] == null)
-                next = (next + 1) % length
-            return next;
-        })
+        // setUserDetails((prev) => {
+        //     for (let i = 0; i < length; i++) {
+        //         // if()
+        //         if (prev[i] == player) {
+        //             // prev.splice(i, 1)
+        //             // prev[i] = { fullName: null, scors: null };
+        //             // prev[i] = null;
+        //             prev[i].isActive = false;
+        //             return prev;
+        //         }
+        //     }
+        // });
+        // setShowBoards((prevShow)=>{
+
+        // })
+        // setAvailableBord((prevBord) => {
+        //     let next = (prevBord + 1) % length;
+        //     // while (players[next].fullName == null)
+        //     while (players[next] == null)
+        //         next = (next + 1) % length
+        //     return next;
+        // })
         // length=length-1;
         // setAvailableBord(prevBord => (prevBord + 1) % length)
 
@@ -105,14 +109,14 @@ function OperationsButtons({ steps, players, player, setUserDetails, number, set
             console.log(players)
             let next = (prevBord + 1) % length;
             // while (players[next].fullName == null)
-            while (players[next] == null)
+            while (players[next].isActive == false)
                 next = (next + 1) % length
             return next;
         })
     }
     return (<>
         {number == 100 ? <button onClick={() => reset()}>התחל משחק חדש</button> : operations.map((operation, i) => <button disabled={(index == availableBord) ? false : true} key={"button_" + i} onClick={() => operate(operation)}>{operation}</button>)}
-        {number == 100 && <button onClick={() => exit()}>יציאה</button>}
+        {number == 100 && <button onClick={() => exitt(player)}>יציאה</button>}
         {/* && <GameBoard players={players} setUserDetails={setUserDetails} />} */}
     </>
     )
