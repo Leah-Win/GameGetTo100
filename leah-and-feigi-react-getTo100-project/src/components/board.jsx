@@ -16,7 +16,8 @@ function Board(props) {
             <h4>{props.player.fullName} :שחקן</h4>
             <h4>{number} :מספר</h4>
             <h4> {steps} :מספר צעדים</h4>
-            <OperationsButtons exitt={props.exit} steps={steps} players={props.players} player={props.player} setUserDetails={props.setUserDetails} number={number} setSteps={setSteps} availableBord={props.availableBord} setNumber={setNumber} setAvailableBord={props.setAvailableBord} length={props.length} index={props.index} />
+            {/* <OperationsButtons exitt={props.exit} steps={steps} players={props.players} player={props.player} setUserDetails={props.setUserDetails} number={number} setSteps={setSteps} availableBord={props.availableBord} setNumber={setNumber} setAvailableBord={props.setAvailableBord} length={props.length} index={props.index} /> */}
+            <OperationsButtons setNn={props.setNn} steps={steps} players={props.players} player={props.player} setUserDetails={props.setUserDetails} number={number} setSteps={setSteps} availableBord={props.availableBord} setNumber={setNumber} setAvailableBord={props.setAvailableBord} length={props.length} index={props.index} />
             <h4>{scorsArr.map((score) => score + " ")} :נקודות</h4>
         </div>
     </>)
