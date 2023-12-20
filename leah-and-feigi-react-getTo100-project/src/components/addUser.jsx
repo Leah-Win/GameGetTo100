@@ -1,31 +1,31 @@
 import { useState } from 'react';
 
-function AddUser({ userDetails, setUserDetails }) {
+function AddUser({ users, setUsers }) {
     const [isVisible, setisVisible] = useState(false)
 
     function findUser(personName) {
         let arrGemers = JSON.parse(localStorage.getItem('Gamers')) || [];
-        return (arrGemers.find(person => (person.fullName === personName)))
+        return (arrGemers.find(person => (person.name === personName)))
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        const { name, value } = event.target[0];
+        const value = event.target[0].value;
         if (value.length < 2)
             alert('שם חייב להיות לפחות בן 2 תווים!')
         else {
             let arrayScors = [];
             let foundUser = findUser(value);
             foundUser && (arrayScors = foundUser.scors);
-            let newUser = { fullName: value, scors: arrayScors, isActive: true };
-            if (!userDetails.find(person => (person.fullName === value)))
-                setUserDetails(prevUserDetails => [...prevUserDetails, newUser]);
+            let newUser = { name: value, scors: arrayScors, isActive: true };
+            if (!users.find(person => (person.name === value)))
+                setUsers(prevUser => [...prevUser, newUser]);
             if (!foundUser) {
                 let arrUsers = JSON.parse(localStorage.getItem('Gamers')) || [];
                 arrUsers.push(newUser);
                 localStorage.setItem('Gamers', JSON.stringify(arrUsers));
             }
-            console.log(userDetails)
+            // console.log(users)
             setisVisible(false);
         }
     }
@@ -34,11 +34,9 @@ function AddUser({ userDetails, setUserDetails }) {
         <button onClick={() => setisVisible(true)}>הוסף שחקן</button>
         {isVisible &&
             <form onSubmit={handleSubmit} required>
-                <div className='fullName'>
-                    <input type='text' name='fullName' required />
-                    <label htmlFor="fullName"> שם מלא</label>
-                </div>
-                <div className='submit'>
+                    <input type='text' name='name' required />
+                    <label htmlFor="name"> שם מלא</label>
+                <div>
                     <button type='submit'>הוסף</button>
                 </div>
                 <button onClick={() => setisVisible(false)} type='button'>סגור</button>

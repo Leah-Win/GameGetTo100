@@ -1,38 +1,38 @@
 
-import GameBoard from "./gameBoard";
-import { createRoot } from 'react-dom/client';
+function OperationsButtons({ exits, setExits, steps, players, player, setUsers, number, setSteps, availableBord, setNumber, setAvailableBord, index }) {
 
-const domNode = document.getElementById('root');
-const root = createRoot(domNode);
-
-// function OperationsButtons({ exitt, steps, players, player, setUserDetails, number, setSteps, availableBord, setNumber, setAvailableBord, length, index }) {
-function OperationsButtons({ setNn, steps, players, player, setUserDetails, number, setSteps, availableBord, setNumber, setAvailableBord, length, index }) {
-
+    const length=players.length;
     const operations = ["+1", "-1", "*2", "/2"];
 
     function reset() {
         setNumber(Math.floor(Math.random() * 100))
         setSteps(0)
     }
-
-    //אם משאירים את זה לנרמל שמות כמו של האורך וקבלת משתנים
-    function exit(player) {
-        setUserDetails((prev) => {
-            for (let i = 0; i < players.length; i++) {
+//אולי בכלל נקרא ל ווינ מתוך יציאה וריסט?
+    function exit() {
+        setUsers((prev) => {
+            for (let i = 0; i < length; i++) {
                 if (prev[i] == player) {
                     prev[i].isActive = false;
                     return prev;
                 }
             }
         });
-        setNn(prev => prev + 1)
-        // root.render(<GameBoard players={players} setUserDetails={setUserDetails} />);
-
+        setExits(prev => prev + 1)
+        if (availableBord == index && length - 1 != exits) {
+            setAvailableBord((prevBord) => {
+                let next = (prevBord + 1) % length;
+                while (players[next].isActive == false)
+                    next = (next + 1) % length
+                return next;
+            })
+        }
     }
+
     function win() {
         let arrGemers = JSON.parse(localStorage.getItem('Gamers'));
         for (let i = 0; i < arrGemers.length; i++)
-            if (arrGemers[i].fullName == player.fullName)
+            if (arrGemers[i].name == player.name)
                 arrGemers[i].scors.push(steps + 1)
         localStorage.setItem('Gamers', JSON.stringify(arrGemers));
     }
@@ -53,7 +53,7 @@ function OperationsButtons({ setNn, steps, players, player, setUserDetails, numb
             case "*2":
                 setNumber(prevNumber => (prevNumber * 2));
                 if (number == 50)
-                    win();                         
+                    win();
                 break;
             case "/2":
                 setNumber(prevNumber => Math.floor(prevNumber / 2));
@@ -65,7 +65,7 @@ function OperationsButtons({ setNn, steps, players, player, setUserDetails, numb
         }
 
         setAvailableBord((prevBord) => {
-            console.log(players)
+            // console.log(players)
             let next = (prevBord + 1) % length;
             while (players[next].isActive == false)
                 next = (next + 1) % length
@@ -75,8 +75,9 @@ function OperationsButtons({ setNn, steps, players, player, setUserDetails, numb
 
     return (
         <>
-            {number == 100 ? <button onClick={() => reset()}>התחל משחק חדש</button> : operations.map((operation, i) => <button disabled={(index == availableBord) ? false : true} key={"button_" + i} onClick={() => operate(operation)}>{operation}</button>)}
-            {number == 100 && <button onClick={() => exit(player)}>יציאה</button>}
+            {number != 100 && operations.map((operation, i) =><button disabled={(index == availableBord) ? false : true} key={"button_" + i} onClick={() => operate(operation)}>{operation}</button>)}
+            {number == 100 && <button onClick={() => reset()}>התחל משחק חדש</button>}
+            {number == 100 && <button onClick={() => exit()}>יציאה</button>}
         </>
     )
 }
