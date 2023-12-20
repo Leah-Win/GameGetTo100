@@ -25,7 +25,6 @@ function AddUser({ users, setUsers }) {
                 arrUsers.push(newUser);
                 localStorage.setItem('Gamers', JSON.stringify(arrUsers));
             }
-            // console.log(users)
             setisVisible(false);
         }
     }

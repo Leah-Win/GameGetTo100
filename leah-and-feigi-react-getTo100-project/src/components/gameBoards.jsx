@@ -40,9 +40,8 @@ function GameBoards({ setGame, players, setUsers }) {
                 return <tr key={"row" + i}><td>{player.name}</td><td>{player.average.toFixed(2)}</td></tr>
             })}
         </table>
-        
+
         <div id="container">
-            {/* {console.log(players)} */}
             {players.map((player, i) => {
                 if (player.isActive == false)
                     return;
