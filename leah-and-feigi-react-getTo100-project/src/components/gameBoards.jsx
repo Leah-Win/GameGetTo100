@@ -4,12 +4,11 @@ import Board from "./board"
 function GameBoards({ setGame, players, setUsers }) {
     const [availableBord, setAvailableBord] = useState(0)
     const [exits, setExits] = useState(0)
+    const [played, setPlayed] = useState(0)
     if (players.length == exits) {
         setUsers([]);
         setGame(false)
     }
-
-    //כשזה לא צריך לעבור בין הלוחות הוא לא מעדכן את הממוצע
 
     function topPlayers() {
         let arrGemers = JSON.parse(localStorage.getItem('Gamers'));
@@ -33,6 +32,7 @@ function GameBoards({ setGame, players, setUsers }) {
     }
 
     return (<>
+        <span>עד כה שוחקו </span>{played}<span> משחקים</span>
         <h3> :השחקנים המובילים </h3>
         <table>
             <tr><th>שם</th><th>ממוצע</th></tr>
@@ -40,12 +40,11 @@ function GameBoards({ setGame, players, setUsers }) {
                 return <tr key={"row" + i}><td>{player.name}</td><td>{player.average.toFixed(2)}</td></tr>
             })}
         </table>
-
         <div id="container">
             {players.map((player, i) => {
                 if (player.isActive == false)
                     return;
-                return <Board exits={exits} setExits={setExits} players={players} index={i} key={"board_" + i} availableBord={availableBord} player={player} setUsers={setUsers} setAvailableBord={setAvailableBord} />
+                return <Board setPlayed={setPlayed} exits={exits} setExits={setExits} players={players} index={i} key={"board_" + i} availableBord={availableBord} player={player} setUsers={setUsers} setAvailableBord={setAvailableBord} />
             })}
         </div>
     </>)

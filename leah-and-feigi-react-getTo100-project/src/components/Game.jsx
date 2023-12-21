@@ -6,9 +6,6 @@ function Game() {
     const [users, setUsers] = useState([]);
     const [game, setGame] = useState(false);
 
-    //להוסיף e ל scors
-    //לאחד user & players
-
     return (
         <>
             <h1>Get To 💯</h1>

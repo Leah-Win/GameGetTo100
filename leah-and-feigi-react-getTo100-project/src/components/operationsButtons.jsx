@@ -1,18 +1,17 @@
 
-function OperationsButtons({ exits, setExits, steps, players, player, setUsers, number, setSteps, availableBord, setNumber, setAvailableBord, index }) {
-    //במקום פליר אפשר לעשות פליירס במקום האינדקס
-    //יש עוד פרופס שאפשר לצמצם?
+function OperationsButtons({ setPlayed, exits, setExits, steps, players, player, setUsers, number, setSteps, availableBord, setNumber, setAvailableBord, index }) {
     const length = players.length;
     const operations = ["+1", "-1", "*2", "/2"];
 
     function reset() {
+        setPlayed(prev => prev + 1)
         win()
         setNumber(Math.floor(Math.random() * 100))
         setSteps(0)
     }
-    //אולי בכלל נקרא ל ווינ מתוך יציאה וריסט?
-    //זה עובד אבל מעלה את הנקודות ב1
+
     function exit() {
+        setPlayed(prev => prev + 1)
         win()
         setUsers((prev) => {
             for (let i = 0; i < length; i++) {
@@ -34,12 +33,11 @@ function OperationsButtons({ exits, setExits, steps, players, player, setUsers, 
     }
 
     function win() {
-        //קצת מפושל הסדר
         alert(player.name + " ניצח ב " + steps + " צעדים")
         let arrGemers = JSON.parse(localStorage.getItem('Gamers'));
         for (let i = 0; i < arrGemers.length; i++)
             if (arrGemers[i].name == player.name)
-                arrGemers[i].scors.push(steps + 1)
+                arrGemers[i].scors.push(steps)
         localStorage.setItem('Gamers', JSON.stringify(arrGemers));
     }
 
@@ -48,23 +46,15 @@ function OperationsButtons({ exits, setExits, steps, players, player, setUsers, 
         switch (an_operation) {
             case "+1":
                 setNumber(prevNumber => (prevNumber + 1));
-                // if (number == 99)
-                //     win();
                 break;
             case "-1":
                 setNumber(prevNumber => (prevNumber - 1));
-                // if (number == 101)
-                //     win();
                 break;
             case "*2":
                 setNumber(prevNumber => (prevNumber * 2));
-                // if (number == 50)
-                //     win();
                 break;
             case "/2":
                 setNumber(prevNumber => Math.floor(prevNumber / 2));
-                // if (number == 200)
-                //     win();
                 break;
             default:
                 break;

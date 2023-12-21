@@ -33,8 +33,8 @@ function AddUser({ users, setUsers }) {
         <button onClick={() => setisVisible(true)}>הוסף שחקן</button>
         {isVisible &&
             <form onSubmit={handleSubmit} required>
-                    <input type='text' name='name' required />
-                    <label htmlFor="name"> שם מלא</label>
+                <input type='text' name='name' required />
+                <label htmlFor="name"> שם מלא</label>
                 <div>
                     <button type='submit'>הוסף</button>
                 </div>
